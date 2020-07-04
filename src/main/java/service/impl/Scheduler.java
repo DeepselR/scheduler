@@ -5,7 +5,6 @@ import exception.TaskNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
 import service.IScheduler;
@@ -72,13 +71,11 @@ public class Scheduler implements IScheduler {
    * @return {@link Task}
    */
   private Task getTaskByName(String name, List<Task> tasks) {
-    Task desiredTask = tasks.stream()
-        .filter(task -> name.equals(task.getName()))
-        .findFirst()
-        .orElse(null);
-    if (Objects.isNull(desiredTask)) {
-      throw new TaskNotFoundException(name);
+    for (Task task : tasks) {
+      if (name.equals(task.getName())) {
+        return task;
+      }
     }
-    return desiredTask;
+    throw new TaskNotFoundException(name);
   }
 }

@@ -21,13 +21,9 @@ public class Main {
     );
 
     IScheduler scheduler = new Scheduler();
-    long start = System.currentTimeMillis();
     List<Task> sortedTasks = scheduler.schedule(tasks);
-    long end = System.currentTimeMillis();
-    System.out.println(end - start);
     for (Task t : sortedTasks) {
       System.out.println(t.getName());
     }
   }
-
 }
